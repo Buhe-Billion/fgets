@@ -17,8 +17,32 @@ MSG: DB "You just entered: %s."
 
 SECTION .bss
 
-BUFFER: RESB 20
+BUFFER: RESB 16
 BUFFLEN EQU $-BUFFER
 
 
 ;------------------------------------------------------------------------------------------------------------------
+
+SECTION .text
+
+EXTERN printf, stdin, fgets
+GLOBAL main
+
+main:
+PUSH RBP                      ;Prolog
+MOV RBP,RSP
+
+MOV RDI,BUFFER
+MOV RSI,BUFFLEN
+MOV RDX,[stdin]
+CALL fgets
+
+;Display the entered chars:
+
+MOV RDI,MSG
+MOV RSI,BUFFER
+MOV RAX,0
+CALL printf
+
+POP RBP                           ;Epilog
+RET                               ;Auf Wiedersehen
