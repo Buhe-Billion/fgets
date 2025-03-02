@@ -32,17 +32,17 @@ main:
 PUSH RBP                      ;Prolog
 MOV RBP,RSP
 
-MOV RDI,BUFFER
-MOV RSI,BUFFLEN
-MOV RDX,[stdin]
-CALL fgets
+MOV RDI,BUFFER              ;Address of BUFFER into RDI
+MOV RSI,BUFFLEN             ;Put # of chars to enter into RDI
+MOV RDX,[stdin]             ;Put value of stdin into RDX, notice that we use the addy of stdin
+CALL fgets                  ;Call libc fn
 
 ;Display the entered chars:
 
-MOV RDI,MSG
-MOV RSI,BUFFER
-MOV RAX,0
-CALL printf
+MOV RDI,MSG                 ;Base string addy goes into RDI
+MOV RSI,BUFFER              ;Data entry buffer's addy into RSI
+MOV RAX,0                   ; We have 0 vector registers
+CALL printf                 ; Call libc fn
 
 POP RBP                           ;Epilog
 RET                               ;Auf Wiedersehen
